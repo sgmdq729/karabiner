@@ -1,5 +1,4 @@
 {
-    "global": { "show_in_menu_bar": false },
     "profiles": [
         {
             "complex_modifications": {
@@ -646,7 +645,6 @@
                 }
             ],
             "name": "MyKeyConfig",
-            "selected": true,
             "virtual_hid_keyboard": { "keyboard_type_v2": "ansi" }
         },
         {
@@ -1175,14 +1173,14 @@
                         ]
                     },
                     {
-                        "description": "controlコンビネーション",
+                        "description": "optionコンビネーション",
                         "manipulators": [
                             {
                                 "description": "command+back_quoteをEscへ変換",
                                 "from": {
                                     "key_code": "grave_accent_and_tilde",
                                     "modifiers": {
-                                        "mandatory": ["left_command"],
+                                        "mandatory": ["left_option"],
                                         "optional": ["any"]
                                     }
                                 },
@@ -1221,6 +1219,7 @@
                 }
             ],
             "name": "HHKB",
+            "selected": true,
             "virtual_hid_keyboard": { "keyboard_type_v2": "ansi" }
         },
         {
