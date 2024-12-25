@@ -5,6 +5,24 @@
                 "parameters": { "basic.to_if_alone_timeout_milliseconds": 10000 },
                 "rules": [
                     {
+                        "description": "right_shiftを単打でbackspaceへ変換",
+                        "manipulators": [
+                            {
+                                "from": {
+                                    "key_code": "right_shift",
+                                    "modifiers": { "optional": ["any"] }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "delete_or_backspace",
+                                        "modifiers": ["left_option"]
+                                    }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
                         "description": "right_commandを単打でIME ONへ変換",
                         "manipulators": [
                             {
@@ -404,7 +422,152 @@
                         ]
                     },
                     {
-                        "description": "04_spaceコンビネーション",
+                        "description": "04_optionコンビネーション(windowの配置用)",
+                        "manipulators": [
+                            {
+                                "conditions": [
+                                    {
+                                        "name": "spaceFlg",
+                                        "type": "variable_if",
+                                        "value": true
+                                    }
+                                ],
+                                "description": "option+space+jをcontrol+left_arrowへ変換",
+                                "from": {
+                                    "key_code": "j",
+                                    "modifiers": { "mandatory": ["left_option"] }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "left_arrow",
+                                        "modifiers": ["left_control"]
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "name": "spaceFlg",
+                                        "type": "variable_if",
+                                        "value": true
+                                    }
+                                ],
+                                "description": "option+space+lをcontrol+right_arrowへ変換",
+                                "from": {
+                                    "key_code": "l",
+                                    "modifiers": { "mandatory": ["left_option"] }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "right_arrow",
+                                        "modifiers": ["left_control"]
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "name": "spaceFlg",
+                                        "type": "variable_if",
+                                        "value": true
+                                    }
+                                ],
+                                "description": "option+space+iをcontrol+up_arrowへ変換",
+                                "from": {
+                                    "key_code": "i",
+                                    "modifiers": { "mandatory": ["left_option"] }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "up_arrow",
+                                        "modifiers": ["left_control"]
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "name": "spaceFlg",
+                                        "type": "variable_if",
+                                        "value": true
+                                    }
+                                ],
+                                "description": "option+space+kをcontrol+down_arrowへ変換",
+                                "from": {
+                                    "key_code": "k",
+                                    "modifiers": { "mandatory": ["left_option"] }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "down_arrow",
+                                        "modifiers": ["left_control"]
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "description": "option+left_arrowをcontrol+left_arrowへ変換",
+                                "from": {
+                                    "key_code": "left_arrow",
+                                    "modifiers": { "mandatory": ["left_option"] }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "left_arrow",
+                                        "modifiers": ["left_control"]
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "description": "option+right_arrowをcontrol+right_arrowへ変換",
+                                "from": {
+                                    "key_code": "right_arrow",
+                                    "modifiers": { "mandatory": ["left_option"] }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "right_arrow",
+                                        "modifiers": ["left_control"]
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "description": "option+up_arrowをcontrol+up_arrowへ変換",
+                                "from": {
+                                    "key_code": "up_arrow",
+                                    "modifiers": { "mandatory": ["left_option"] }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "up_arrow",
+                                        "modifiers": ["left_control"]
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "description": "option+down_arrowをcontrol+down_arrowへ変換",
+                                "from": {
+                                    "key_code": "down_arrow",
+                                    "modifiers": { "mandatory": ["left_option"] }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "down_arrow",
+                                        "modifiers": ["left_control"]
+                                    }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "description": "05_spaceコンビネーション",
                         "manipulators": [
                             {
                                 "conditions": [
@@ -594,10 +757,7 @@
                             {
                                 "from": {
                                     "key_code": "q",
-                                    "modifiers": {
-                                        "mandatory": ["left_command"],
-                                        "optional": ["any"]
-                                    }
+                                    "modifiers": { "mandatory": ["left_command"] }
                                 },
                                 "parameters": { "basic.to_if_held_down_threshold_milliseconds": 500 },
                                 "to_if_held_down": [
@@ -642,6 +802,15 @@
                         "vendor_id": 1133
                     },
                     "mouse_flip_vertical_wheel": true
+                },
+                {
+                    "identifiers": {
+                        "is_keyboard": true,
+                        "is_pointing_device": true,
+                        "product_id": 52947,
+                        "vendor_id": 7848
+                    },
+                    "ignore": false
                 }
             ],
             "name": "MyKeyConfig",
@@ -1082,41 +1251,9 @@
                                         "value": true
                                     }
                                 ],
-                                "description": "space+uでbackspace",
+                                "description": "space+uでファイル先頭へ移動(command+up_arrow)",
                                 "from": {
                                     "key_code": "u",
-                                    "modifiers": { "optional": ["any"] }
-                                },
-                                "to": [{ "key_code": "delete_or_backspace" }],
-                                "type": "basic"
-                            },
-                            {
-                                "conditions": [
-                                    {
-                                        "name": "spaceFlg",
-                                        "type": "variable_if",
-                                        "value": true
-                                    }
-                                ],
-                                "description": "space+oでdelete",
-                                "from": {
-                                    "key_code": "o",
-                                    "modifiers": { "optional": ["any"] }
-                                },
-                                "to": [{ "key_code": "delete_forward" }],
-                                "type": "basic"
-                            },
-                            {
-                                "conditions": [
-                                    {
-                                        "name": "spaceFlg",
-                                        "type": "variable_if",
-                                        "value": true
-                                    }
-                                ],
-                                "description": "space+yでファイル先頭へ移動(command+up_arrow)",
-                                "from": {
-                                    "key_code": "y",
                                     "modifiers": { "optional": ["any"] }
                                 },
                                 "to": [
@@ -1135,9 +1272,9 @@
                                         "value": true
                                     }
                                 ],
-                                "description": "space+pでファイル末尾へ移動(command+down_arrow)",
+                                "description": "space+oでファイル末尾へ移動(command+down_arrow)",
                                 "from": {
-                                    "key_code": "p",
+                                    "key_code": "o",
                                     "modifiers": { "optional": ["any"] }
                                 },
                                 "to": [
