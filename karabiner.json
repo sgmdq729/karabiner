@@ -432,7 +432,7 @@
                                         "value": true
                                     }
                                 ],
-                                "description": "option+space+jをcontrol+left_arrowへ変換",
+                                "description": "option+space+jをcontrol+option+left_arrowへ変換",
                                 "from": {
                                     "key_code": "j",
                                     "modifiers": { "mandatory": ["left_option"] }
@@ -440,7 +440,7 @@
                                 "to": [
                                     {
                                         "key_code": "left_arrow",
-                                        "modifiers": ["left_control"]
+                                        "modifiers": ["left_control", "left_option"]
                                     }
                                 ],
                                 "type": "basic"
@@ -453,7 +453,7 @@
                                         "value": true
                                     }
                                 ],
-                                "description": "option+space+lをcontrol+right_arrowへ変換",
+                                "description": "option+space+lをcontrol+option+right_arrowへ変換",
                                 "from": {
                                     "key_code": "l",
                                     "modifiers": { "mandatory": ["left_option"] }
@@ -461,7 +461,7 @@
                                 "to": [
                                     {
                                         "key_code": "right_arrow",
-                                        "modifiers": ["left_control"]
+                                        "modifiers": ["left_control", "left_option"]
                                     }
                                 ],
                                 "type": "basic"
@@ -474,7 +474,7 @@
                                         "value": true
                                     }
                                 ],
-                                "description": "option+space+iをcontrol+up_arrowへ変換",
+                                "description": "option+space+iをcontrol+option+up_arrowへ変換",
                                 "from": {
                                     "key_code": "i",
                                     "modifiers": { "mandatory": ["left_option"] }
@@ -482,7 +482,7 @@
                                 "to": [
                                     {
                                         "key_code": "up_arrow",
-                                        "modifiers": ["left_control"]
+                                        "modifiers": ["left_control", "left_option"]
                                     }
                                 ],
                                 "type": "basic"
@@ -495,7 +495,7 @@
                                         "value": true
                                     }
                                 ],
-                                "description": "option+space+kをcontrol+down_arrowへ変換",
+                                "description": "option+space+kをcontrol+option+down_arrowへ変換",
                                 "from": {
                                     "key_code": "k",
                                     "modifiers": { "mandatory": ["left_option"] }
@@ -503,13 +503,13 @@
                                 "to": [
                                     {
                                         "key_code": "down_arrow",
-                                        "modifiers": ["left_control"]
+                                        "modifiers": ["left_control", "left_option"]
                                     }
                                 ],
                                 "type": "basic"
                             },
                             {
-                                "description": "option+left_arrowをcontrol+left_arrowへ変換",
+                                "description": "option+left_arrowをcontrol+option+left_arrowへ変換",
                                 "from": {
                                     "key_code": "left_arrow",
                                     "modifiers": { "mandatory": ["left_option"] }
@@ -517,13 +517,13 @@
                                 "to": [
                                     {
                                         "key_code": "left_arrow",
-                                        "modifiers": ["left_control"]
+                                        "modifiers": ["left_control", "left_option"]
                                     }
                                 ],
                                 "type": "basic"
                             },
                             {
-                                "description": "option+right_arrowをcontrol+right_arrowへ変換",
+                                "description": "option+right_arrowをcontrol+option+right_arrowへ変換",
                                 "from": {
                                     "key_code": "right_arrow",
                                     "modifiers": { "mandatory": ["left_option"] }
@@ -531,13 +531,13 @@
                                 "to": [
                                     {
                                         "key_code": "right_arrow",
-                                        "modifiers": ["left_control"]
+                                        "modifiers": ["left_control", "left_option"]
                                     }
                                 ],
                                 "type": "basic"
                             },
                             {
-                                "description": "option+up_arrowをcontrol+up_arrowへ変換",
+                                "description": "option+up_arrowをcontrol+option+up_arrowへ変換",
                                 "from": {
                                     "key_code": "up_arrow",
                                     "modifiers": { "mandatory": ["left_option"] }
@@ -545,13 +545,13 @@
                                 "to": [
                                     {
                                         "key_code": "up_arrow",
-                                        "modifiers": ["left_control"]
+                                        "modifiers": ["left_control", "left_option"]
                                     }
                                 ],
                                 "type": "basic"
                             },
                             {
-                                "description": "option+down_arrowをcontrol+down_arrowへ変換",
+                                "description": "option+down_arrowをcontrol+option+down_arrowへ変換",
                                 "from": {
                                     "key_code": "down_arrow",
                                     "modifiers": { "mandatory": ["left_option"] }
@@ -559,7 +559,7 @@
                                 "to": [
                                     {
                                         "key_code": "down_arrow",
-                                        "modifiers": ["left_control"]
+                                        "modifiers": ["left_control", "left_option"]
                                     }
                                 ],
                                 "type": "basic"
