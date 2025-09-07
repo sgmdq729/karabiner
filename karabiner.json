@@ -5,19 +5,14 @@
                 "parameters": { "basic.to_if_alone_timeout_milliseconds": 10000 },
                 "rules": [
                     {
-                        "description": "right_shiftを単打でbackspaceへ変換",
+                        "description": "right_shiftをdeleteへ変換",
                         "manipulators": [
                             {
                                 "from": {
                                     "key_code": "right_shift",
                                     "modifiers": { "optional": ["any"] }
                                 },
-                                "to": [
-                                    {
-                                        "key_code": "delete_or_backspace",
-                                        "modifiers": ["left_option"]
-                                    }
-                                ],
+                                "to": [{ "key_code": "delete_forward" }],
                                 "type": "basic"
                             }
                         ]
@@ -62,6 +57,15 @@
                                     "modifiers": { "optional": ["any"] }
                                 },
                                 "to": [{ "key_code": "left_command" }],
+                                "type": "basic"
+                            },
+                            {
+                                "description": "fnをcontrolへ変換",
+                                "from": {
+                                    "apple_vendor_top_case_key_code": "keyboard_fn",
+                                    "modifiers": { "optional": ["any"] }
+                                },
+                                "to": [{ "key_code": "left_control" }],
                                 "type": "basic"
                             }
                         ]
@@ -230,9 +234,15 @@
                                         "name": "spaceFlg",
                                         "type": "variable_if",
                                         "value": true
+                                    },
+                                    {
+                                        "bundle_identifiers": [
+                                            "^org\\.alacritty$"
+                                        ],
+                                        "type": "frontmost_application_unless"
                                     }
                                 ],
-                                "description": "command+space+jで上移動(up_arrow)",
+                                "description": "command+space+iで上移動(up_arrow)",
                                 "from": {
                                     "key_code": "i",
                                     "modifiers": {
@@ -249,6 +259,12 @@
                                         "name": "spaceFlg",
                                         "type": "variable_if",
                                         "value": true
+                                    },
+                                    {
+                                        "bundle_identifiers": [
+                                            "^org\\.alacritty$"
+                                        ],
+                                        "type": "frontmost_application_unless"
                                     }
                                 ],
                                 "description": "command+space+kで下移動(down_arrow)",
@@ -315,23 +331,6 @@
                     {
                         "description": "03_commandコンビネーション",
                         "manipulators": [
-                            {
-                                "description": "command+tabをタブ切り替え(control+tab)へ変換",
-                                "from": {
-                                    "key_code": "tab",
-                                    "modifiers": {
-                                        "mandatory": ["left_command"],
-                                        "optional": ["any"]
-                                    }
-                                },
-                                "to": [
-                                    {
-                                        "key_code": "tab",
-                                        "modifiers": ["control"]
-                                    }
-                                ],
-                                "type": "basic"
-                            },
                             {
                                 "description": "command+back_quoteをEscへ変換",
                                 "from": {
@@ -748,6 +747,38 @@
                                 },
                                 "to": [{ "key_code": "delete_forward" }],
                                 "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "name": "spaceFlg",
+                                        "type": "variable_if",
+                                        "value": true
+                                    }
+                                ],
+                                "description": "space+dでF15(vscodeのリマップ)",
+                                "from": {
+                                    "key_code": "d",
+                                    "modifiers": { "optional": ["any"] }
+                                },
+                                "to": [{ "key_code": "f15" }],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "name": "spaceFlg",
+                                        "type": "variable_if",
+                                        "value": true
+                                    }
+                                ],
+                                "description": "space+dでF16(vscodeのリマップ)",
+                                "from": {
+                                    "key_code": "s",
+                                    "modifiers": { "optional": ["any"] }
+                                },
+                                "to": [{ "key_code": "f16" }],
+                                "type": "basic"
                             }
                         ]
                     },
@@ -814,7 +845,6 @@
                 }
             ],
             "name": "MyKeyConfig",
-            "selected": true,
             "virtual_hid_keyboard": { "keyboard_type_v2": "ansi" }
         },
         {
@@ -1361,6 +1391,298 @@
         },
         {
             "name": "Default",
+            "virtual_hid_keyboard": { "keyboard_type_v2": "ansi" }
+        },
+        {
+            "complex_modifications": {
+                "parameters": { "basic.to_if_alone_timeout_milliseconds": 10000 },
+                "rules": [
+                    {
+                        "description": "right_commandを単打でIME ONへ変換",
+                        "manipulators": [
+                            {
+                                "from": {
+                                    "key_code": "right_command",
+                                    "modifiers": { "optional": ["any"] }
+                                },
+                                "parameters": { "basic.to_if_alone_timeout_milliseconds": 1000000 },
+                                "to": [{ "key_code": "right_command" }],
+                                "to_if_alone": [{ "key_code": "japanese_kana" }],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "description": "left_command単打でIME OFFへ変換",
+                        "manipulators": [
+                            {
+                                "from": {
+                                    "key_code": "left_command",
+                                    "modifiers": { "optional": ["any"] }
+                                },
+                                "parameters": { "basic.to_if_alone_timeout_milliseconds": 1000000 },
+                                "to": [{ "key_code": "right_command" }],
+                                "to_if_alone": [{ "key_code": "japanese_eisuu" }],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "description": "caps_lockをleft_controlへ変換",
+                        "manipulators": [
+                            {
+                                "description": "caps_lockをleft_controlへ変換",
+                                "from": {
+                                    "key_code": "caps_lock",
+                                    "modifiers": { "optional": ["any"] }
+                                },
+                                "to": [{ "key_code": "left_control" }],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "description": "spaceホールド",
+                        "manipulators": [
+                            {
+                                "description": "spaceホールド中にspaceFlgをtrueにする(単打はspaceとして出力)",
+                                "from": {
+                                    "key_code": "spacebar",
+                                    "modifiers": { "optional": ["any"] }
+                                },
+                                "parameters": { "basic.to_if_alone_timeout_milliseconds": 1000000 },
+                                "to": [
+                                    {
+                                        "set_variable": {
+                                            "key_up_value": false,
+                                            "name": "spaceFlg",
+                                            "value": true
+                                        }
+                                    }
+                                ],
+                                "to_if_alone": [{ "key_code": "spacebar" }],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "description": "command+y でredo(command+shift+z)",
+                        "manipulators": [
+                            {
+                                "description": "command+y でredo(command+shift+z)",
+                                "from": {
+                                    "key_code": "y",
+                                    "modifiers": {
+                                        "mandatory": ["left_command"],
+                                        "optional": ["any"]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "z",
+                                        "modifiers": ["left_command", "left_shift"]
+                                    }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "description": "space移動",
+                        "manipulators": [
+                            {
+                                "conditions": [
+                                    {
+                                        "name": "spaceFlg",
+                                        "type": "variable_if",
+                                        "value": true
+                                    }
+                                ],
+                                "description": "space+hで左移動",
+                                "from": {
+                                    "key_code": "h",
+                                    "modifiers": { "optional": ["any"] }
+                                },
+                                "to": [{ "key_code": "left_arrow" }],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "name": "spaceFlg",
+                                        "type": "variable_if",
+                                        "value": true
+                                    }
+                                ],
+                                "description": "space+jで下移動",
+                                "from": {
+                                    "key_code": "j",
+                                    "modifiers": { "optional": ["any"] }
+                                },
+                                "to": [{ "key_code": "down_arrow" }],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "name": "spaceFlg",
+                                        "type": "variable_if",
+                                        "value": true
+                                    }
+                                ],
+                                "description": "space+kで上移動",
+                                "from": {
+                                    "key_code": "k",
+                                    "modifiers": { "optional": ["any"] }
+                                },
+                                "to": [{ "key_code": "up_arrow" }],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "name": "spaceFlg",
+                                        "type": "variable_if",
+                                        "value": true
+                                    }
+                                ],
+                                "description": "space+lで右移動",
+                                "from": {
+                                    "key_code": "l",
+                                    "modifiers": { "optional": ["any"] }
+                                },
+                                "to": [{ "key_code": "right_arrow" }],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "name": "spaceFlg",
+                                        "type": "variable_if",
+                                        "value": true
+                                    }
+                                ],
+                                "description": "space+0で行頭移動(cntrol+a)",
+                                "from": {
+                                    "key_code": "0",
+                                    "modifiers": { "optional": ["any"] }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "a",
+                                        "modifiers": ["control"]
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "name": "spaceFlg",
+                                        "type": "variable_if",
+                                        "value": true
+                                    }
+                                ],
+                                "description": "space+$で行末移動(cntrol+e)",
+                                "from": {
+                                    "key_code": "4",
+                                    "modifiers": { "mandatory": ["shift"] }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "e",
+                                        "modifiers": ["control"]
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "name": "spaceFlg",
+                                        "type": "variable_if",
+                                        "value": true
+                                    }
+                                ],
+                                "description": "space+wで単語単位の右移動(option+right_arrow)",
+                                "from": {
+                                    "key_code": "w",
+                                    "modifiers": { "optional": ["any"] }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "right_arrow",
+                                        "modifiers": ["option"]
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "name": "spaceFlg",
+                                        "type": "variable_if",
+                                        "value": true
+                                    }
+                                ],
+                                "description": "space+bで単語単位の左移動(option+left_arrow)",
+                                "from": {
+                                    "key_code": "b",
+                                    "modifiers": { "optional": ["any"] }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "left_arrow",
+                                        "modifiers": ["option"]
+                                    }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "description": "command-qの実行を0.5秒間長遅延",
+                        "manipulators": [
+                            {
+                                "from": {
+                                    "key_code": "q",
+                                    "modifiers": { "mandatory": ["left_command"] }
+                                },
+                                "parameters": { "basic.to_if_held_down_threshold_milliseconds": 500 },
+                                "to_if_held_down": [
+                                    {
+                                        "key_code": "q",
+                                        "modifiers": ["command"],
+                                        "repeat": false
+                                    }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "devices": [
+                {
+                    "identifiers": {
+                        "is_pointing_device": true,
+                        "product_id": 45085,
+                        "vendor_id": 1133
+                    },
+                    "mouse_flip_vertical_wheel": true
+                },
+                {
+                    "identifiers": {
+                        "is_keyboard": true,
+                        "is_pointing_device": true,
+                        "product_id": 52947,
+                        "vendor_id": 7848
+                    },
+                    "ignore": false
+                }
+            ],
+            "name": "vim",
+            "selected": true,
             "virtual_hid_keyboard": { "keyboard_type_v2": "ansi" }
         }
     ]
