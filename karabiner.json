@@ -845,6 +845,7 @@
                 }
             ],
             "name": "MyKeyConfig",
+            "selected": true,
             "virtual_hid_keyboard": { "keyboard_type_v2": "ansi" }
         },
         {
@@ -1431,12 +1432,31 @@
                         "description": "caps_lockをleft_controlへ変換",
                         "manipulators": [
                             {
-                                "description": "caps_lockをleft_controlへ変換",
+                                "description": "caps_lockをright_controlへ変換",
                                 "from": {
                                     "key_code": "caps_lock",
                                     "modifiers": { "optional": ["any"] }
                                 },
-                                "to": [{ "key_code": "left_control" }],
+                                "to": [{ "key_code": "right_control" }],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "description": "right_control+spaceをcommand+spaceに変換(raycast用)",
+                        "manipulators": [
+                            {
+                                "description": "right_control+spaceをcommand+spaceに変換(raycast用)",
+                                "from": {
+                                    "key_code": "spacebar",
+                                    "modifiers": { "mandatory": ["right_control"] }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "spacebar",
+                                        "modifiers": ["command"]
+                                    }
+                                ],
                                 "type": "basic"
                             }
                         ]
@@ -1466,29 +1486,94 @@
                         ]
                     },
                     {
-                        "description": "command+y でredo(command+shift+z)",
+                        "description": "01_control移動",
                         "manipulators": [
                             {
-                                "description": "command+y でredo(command+shift+z)",
+                                "conditions": [
+                                    {
+                                        "name": "spaceFlg",
+                                        "type": "variable_if",
+                                        "value": true
+                                    }
+                                ],
+                                "description": "control+space+hで単語単位の左移動",
                                 "from": {
-                                    "key_code": "y",
+                                    "key_code": "h",
                                     "modifiers": {
-                                        "mandatory": ["left_command"],
+                                        "mandatory": ["control"],
                                         "optional": ["any"]
                                     }
                                 },
-                                "to": [
+                                "to": {
+                                    "key_code": "left_arrow",
+                                    "modifiers": ["option"]
+                                },
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
                                     {
-                                        "key_code": "z",
-                                        "modifiers": ["left_command", "left_shift"]
+                                        "name": "spaceFlg",
+                                        "type": "variable_if",
+                                        "value": true
                                     }
                                 ],
+                                "description": "control+space+lで単語単位の右移動",
+                                "from": {
+                                    "key_code": "l",
+                                    "modifiers": {
+                                        "mandatory": ["control"],
+                                        "optional": ["any"]
+                                    }
+                                },
+                                "to": {
+                                    "key_code": "right_arrow",
+                                    "modifiers": ["option"]
+                                },
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "name": "spaceFlg",
+                                        "type": "variable_if",
+                                        "value": true
+                                    }
+                                ],
+                                "description": "control+space+jで下移動",
+                                "from": {
+                                    "key_code": "j",
+                                    "modifiers": {
+                                        "mandatory": ["control"],
+                                        "optional": ["any"]
+                                    }
+                                },
+                                "to": { "key_code": "down_arrow" },
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "name": "spaceFlg",
+                                        "type": "variable_if",
+                                        "value": true
+                                    }
+                                ],
+                                "description": "control+space+kで単語単位の右移動",
+                                "from": {
+                                    "key_code": "k",
+                                    "modifiers": {
+                                        "mandatory": ["control"],
+                                        "optional": ["any"]
+                                    }
+                                },
+                                "to": { "key_code": "up_arrow" },
                                 "type": "basic"
                             }
                         ]
                     },
                     {
-                        "description": "space移動",
+                        "description": "02_space移動",
                         "manipulators": [
                             {
                                 "conditions": [
@@ -1641,12 +1726,34 @@
                         ]
                     },
                     {
+                        "description": "command+y でredo(command+shift+z)",
+                        "manipulators": [
+                            {
+                                "description": "command+y でredo(command+shift+z)",
+                                "from": {
+                                    "key_code": "y",
+                                    "modifiers": {
+                                        "mandatory": ["left_command"],
+                                        "optional": ["any"]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "z",
+                                        "modifiers": ["left_command", "left_shift"]
+                                    }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
                         "description": "command-qの実行を0.5秒間長遅延",
                         "manipulators": [
                             {
                                 "from": {
                                     "key_code": "q",
-                                    "modifiers": { "mandatory": ["left_command"] }
+                                    "modifiers": { "mandatory": ["command"] }
                                 },
                                 "parameters": { "basic.to_if_held_down_threshold_milliseconds": 500 },
                                 "to_if_held_down": [
@@ -1682,7 +1789,6 @@
                 }
             ],
             "name": "vim",
-            "selected": true,
             "virtual_hid_keyboard": { "keyboard_type_v2": "ansi" }
         }
     ]
